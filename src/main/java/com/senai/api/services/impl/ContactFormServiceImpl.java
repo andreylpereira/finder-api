@@ -76,6 +76,7 @@ public class ContactFormServiceImpl implements ContactFormService {
 				Item item = itemRepository.getReferenceById(contactFormDto.getItemId());
 				ContactForm form = new ContactForm();
 				BeanUtils.copyProperties(contactFormDto, form);
+				form.setContactDate(LocalDateTime.now());
 				form.setItem(item);
 				contactFormRepository.save(form);
 				return new ResponseEntity<>(contactFormDto, HttpStatus.CREATED);

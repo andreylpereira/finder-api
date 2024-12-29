@@ -1,16 +1,19 @@
 package com.senai.api.entities;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -25,17 +28,28 @@ public class Item {
 	private Integer id;
 	@NotBlank(message = "Campo título não pode ser nulo ou em branco.")
 	private String title;
+	@Lob
+	@Column(columnDefinition = "TEXT")
 	@NotBlank(message = "Campo descrição não pode ser nulo ou em branco.")
 	private String description;
 	@NotBlank(message = "Campo local encontrado não pode ser nulo ou em branco.")
 	private String localFound;
-	private LocalDateTime dateFound;
-	private String photo;
+	private Date dateFound;
+	@Lob
+	@Column(columnDefinition = "TEXT")
+	private String observation;
+	@NotBlank
+	private String contentType;
+	
+	@Lob
+	@Column(columnDefinition = "TEXT")
+	@NotBlank
+	private String base64Image;
 	@NotBlank(message = "Campo status não pode ser nulo ou em branco.")
 	private String status;
 	private Boolean ownerFound = false;
 	private LocalDateTime registrationDate = LocalDateTime.now();
-
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
@@ -47,15 +61,20 @@ public class Item {
 	public Item() {
 	}
 
-	public Item(Integer id, String title, String description, String localFound, LocalDateTime dateFound, String photo,
-			String status, Boolean ownerFound, LocalDateTime registrationDate, User userRegistration,
-			Set<ContactForm> forms) {
+	public Item(Integer id, @NotBlank(message = "Campo título não pode ser nulo ou em branco.") String title,
+			@NotBlank(message = "Campo descrição não pode ser nulo ou em branco.") String description,
+			@NotBlank(message = "Campo local encontrado não pode ser nulo ou em branco.") String localFound,
+			Date dateFound, String observation, @NotBlank String contentType, @NotBlank String base64Image,
+			@NotBlank(message = "Campo status não pode ser nulo ou em branco.") String status, Boolean ownerFound,
+			LocalDateTime registrationDate, User userRegistration, Set<ContactForm> forms) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.localFound = localFound;
 		this.dateFound = dateFound;
-		this.photo = photo;
+		this.observation = observation;
+		this.contentType = contentType;
+		this.base64Image = base64Image;
 		this.status = status;
 		this.ownerFound = ownerFound;
 		this.registrationDate = registrationDate;
@@ -95,20 +114,36 @@ public class Item {
 		this.localFound = localFound;
 	}
 
-	public LocalDateTime getDateFound() {
+	public Date getDateFound() {
 		return dateFound;
 	}
 
-	public void setDateFound(LocalDateTime dateFound) {
+	public void setDateFound(Date dateFound) {
 		this.dateFound = dateFound;
 	}
 
-	public String getPhoto() {
-		return photo;
+	public String getObservation() {
+		return observation;
 	}
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
+	public void setObservation(String observation) {
+		this.observation = observation;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public String getBase64Image() {
+		return base64Image;
+	}
+
+	public void setBase64Image(String base64Image) {
+		this.base64Image = base64Image;
 	}
 
 	public String getStatus() {
@@ -151,4 +186,6 @@ public class Item {
 		this.forms = forms;
 	}
 
+	
+	
 }

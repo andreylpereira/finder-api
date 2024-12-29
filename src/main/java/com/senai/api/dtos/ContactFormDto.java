@@ -6,12 +6,11 @@ public class ContactFormDto {
 
 	private Integer id;
 	private String nameUser;
-	private String emailUser;
+	private String contactUser;
+	private String contactTitle;
 	private String contactDescription;
-	private LocalDateTime contactDate;
+	private LocalDateTime contactDate; 
 	private Integer itemId;
-	private Boolean analized;
-
 	public Integer getId() {
 		return id;
 	}
@@ -24,11 +23,17 @@ public class ContactFormDto {
 	public void setNameUser(String nameUser) {
 		this.nameUser = nameUser;
 	}
-	public String getEmailUser() {
-		return emailUser;
+	public String getContactUser() {
+		return contactUser;
 	}
-	public void setEmailUser(String emailUser) {
-		this.emailUser = emailUser;
+	public void setContactUser(String contactUser) {
+		this.contactUser = contactUser;
+	}
+	public String getContactTitle() {
+		return contactTitle;
+	}
+	public void setContactTitle(String contactTitle) {
+		this.contactTitle = contactTitle;
 	}
 	public String getContactDescription() {
 		return contactDescription;
@@ -48,11 +53,6 @@ public class ContactFormDto {
 	public void setItemId(Integer itemId) {
 		this.itemId = itemId;
 	}
-	public Boolean getAnalized() {
-		return analized;
-	}
-	public void setAnalized(Boolean analized) {
-		this.analized = analized;
-	}
+	
 	
 }

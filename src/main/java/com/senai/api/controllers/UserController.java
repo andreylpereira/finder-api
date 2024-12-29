@@ -43,7 +43,7 @@ public class UserController {
 		return userService.edit(userId, userDto);
 	}
 
-	@PutMapping("/change-password/{userId}")
+	@PatchMapping("/change-password/{userId}")
 	public ResponseEntity<?> putUserPassword(@PathVariable Integer userId, @Valid @RequestBody String password) {
 		return userService.changePassword(userId, password);
 	}

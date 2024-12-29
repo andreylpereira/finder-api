@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -25,7 +27,11 @@ public class ContactForm {
 	private String nameUser;
 	@Email(message = "E-mail inválido.")
 	@NotBlank(message = "Campo e-mail não pode ser nulo ou em branco.")
-	private String emailUser;
+	private String contactUser;
+	@NotBlank(message = "Campo contato não pode ser nulo ou em branco.")
+	private String contactTitle;
+	@Lob
+	@Column(columnDefinition = "TEXT")
 	@NotBlank(message = "Campo contato não pode ser nulo ou em branco.")
 	private String contactDescription;
 	@ManyToOne
@@ -33,22 +39,22 @@ public class ContactForm {
 	@JsonBackReference
 	private Item item;
 	private LocalDateTime contactDate = LocalDateTime.now();
-	private Boolean analized = false;
 
 	public ContactForm() {
 	}
 
 	public ContactForm(Integer id, @NotBlank(message = "Campo nome não pode ser nulo ou em branco.") String nameUser,
-			@Email(message = "E-mail inválido.") @NotBlank(message = "Campo e-mail não pode ser nulo ou em branco.") String emailUser,
+			@Email(message = "E-mail inválido.") @NotBlank(message = "Campo e-mail não pode ser nulo ou em branco.") String contactUser,
+			@NotBlank(message = "Campo contato não pode ser nulo ou em branco.") String contactTitle,
 			@NotBlank(message = "Campo contato não pode ser nulo ou em branco.") String contactDescription, Item item,
-			LocalDateTime contactDate, Boolean analized) {
+			LocalDateTime contactDate) {
 		this.id = id;
 		this.nameUser = nameUser;
-		this.emailUser = emailUser;
+		this.contactUser = contactUser;
+		this.contactTitle = contactTitle;
 		this.contactDescription = contactDescription;
 		this.item = item;
 		this.contactDate = contactDate;
-		this.analized = analized;
 	}
 
 	public Integer getId() {
@@ -67,12 +73,20 @@ public class ContactForm {
 		this.nameUser = nameUser;
 	}
 
-	public String getEmailUser() {
-		return emailUser;
+	public String getContactUser() {
+		return contactUser;
 	}
 
-	public void setEmailUser(String emailUser) {
-		this.emailUser = emailUser;
+	public void setContactUser(String contactUser) {
+		this.contactUser = contactUser;
+	}
+
+	public String getContactTitle() {
+		return contactTitle;
+	}
+
+	public void setContactTitle(String contactTitle) {
+		this.contactTitle = contactTitle;
 	}
 
 	public String getContactDescription() {
@@ -99,13 +113,6 @@ public class ContactForm {
 		this.contactDate = contactDate;
 	}
 
-	public Boolean getAnalized() {
-		return analized;
-	}
-
-	public void setAnalized(Boolean analized) {
-		this.analized = analized;
-	}
-
 	
+
 }

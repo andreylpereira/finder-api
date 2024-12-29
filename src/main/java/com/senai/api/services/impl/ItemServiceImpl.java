@@ -1,5 +1,6 @@
 package com.senai.api.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -83,6 +84,7 @@ public class ItemServiceImpl implements ItemService {
 				Item item = new Item();
 				BeanUtils.copyProperties(itemDto, item);
 				item.setUserRegistration(user);
+				item.setRegistrationDate(LocalDateTime.now());
 				itemRepository.save(item);
 				return new ResponseEntity<>(itemDto, HttpStatus.CREATED);
 			}
