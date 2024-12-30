@@ -17,6 +17,7 @@ public class ItemDto {
 	private String observation;
 	private LocalDateTime registrationDate;
 	private Integer userId;
+	
 	public Integer getId() {
 		return id;
 	}

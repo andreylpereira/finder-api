@@ -46,5 +46,10 @@ public class ItemController {
 	public ResponseEntity<?> putItem(@PathVariable Integer itemId, @Valid @RequestBody ItemDto itemDto) {
 		return itemService.edit(itemId, itemDto);
 	}
+	
+	@GetMapping("/public")
+	public ResponseEntity<?> getPublicItems() {
+		return itemService.listPublicItems();
+	}
 
 }

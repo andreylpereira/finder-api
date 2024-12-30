@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,7 +108,7 @@ public class ItemServiceImpl implements ItemService {
 		return new ResponseEntity<>("Não foi possível atualizar os dados do item.", HttpStatus.NOT_FOUND);
 	}
 
-	@Override
+	@Override // deletar?
 	public ResponseEntity<?> findForms(Integer itemId) {
 		try {
 			boolean isExists = itemRepository.existsById(itemId);
@@ -127,5 +128,21 @@ public class ItemServiceImpl implements ItemService {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		return new ResponseEntity<>("Não foi possível recuperar os formulários.", HttpStatus.BAD_REQUEST);
+	}
+
+	@Override
+	public ResponseEntity<?> listPublicItems() {
+		try {
+			List<Item> items = itemRepository.findAll();
+
+			for (Item item : items) {
+				item.setForms(null);
+				item.setObservation(null);
+			}
+			List<Item> filterList = items.stream().filter(i -> i.getOwnerFound() == false).collect(Collectors.toList());
+			return new ResponseEntity<>(filterList, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Não foi possível recuperar a lista de itens.", HttpStatus.BAD_REQUEST);
+		}
 	}
 }

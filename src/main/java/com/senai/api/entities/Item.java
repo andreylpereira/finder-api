@@ -48,7 +48,7 @@ public class Item {
 	@NotBlank(message = "Campo status não pode ser nulo ou em branco.")
 	private String status;
 	private Boolean ownerFound = false;
-	private LocalDateTime registrationDate = LocalDateTime.now();
+	private LocalDateTime registrationDate;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")

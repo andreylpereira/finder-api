@@ -34,11 +34,11 @@ public class SecurityWeb {
             .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
                 .requestMatchers("/api/auth/login/**").permitAll() 
+                .requestMatchers("/api/items/public/**").permitAll()
                 .requestMatchers(HttpMethod.PATCH,"/api/users/change-password/**").hasAnyAuthority("ADMINISTRADOR", "FUNCIONARIO")
                 .requestMatchers("/api/users/**").hasAnyAuthority("ADMINISTRADOR")
                 .requestMatchers("/api/items/**").hasAnyAuthority("ADMINISTRADOR", "FUNCIONARIO")  
                 .requestMatchers("/api/forms/**").hasAnyAuthority("ADMINISTRADOR", "FUNCIONARIO")
-                .requestMatchers(HttpMethod.GET,"/api/items/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/forms/**").permitAll()
                 .anyRequest().authenticated() 
             )

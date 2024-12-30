@@ -13,5 +13,6 @@ public interface ItemService {
 	ResponseEntity<?> register(ItemDto itemDto);
 	ResponseEntity<?> edit(Integer itemId, ItemDto itemDto);
 	ResponseEntity<?> findForms(Integer itemId);
+	ResponseEntity<?> listPublicItems();
 
 }

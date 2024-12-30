@@ -25,7 +25,6 @@ public class ContactForm {
 	private Integer id;
 	@NotBlank(message = "Campo nome não pode ser nulo ou em branco.")
 	private String nameUser;
-	@Email(message = "E-mail inválido.")
 	@NotBlank(message = "Campo e-mail não pode ser nulo ou em branco.")
 	private String contactUser;
 	@NotBlank(message = "Campo contato não pode ser nulo ou em branco.")
